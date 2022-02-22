@@ -65,7 +65,7 @@
 
             <table>
                 <tr>
-                    <td>x</td>
+                    <td style="background-color: darkgrey">x</td>
                     @foreach (var instr in _instructorsActive)
                     {
                         <th style="background-color: @getColor(instr.Id)">
@@ -83,17 +83,23 @@
                         {
                             if (instr.Id == instr2.Id)
                             {
-                                <td>x</td>
+                                <td style="background-color: darkgrey">x</td>
                             }
                             else
                             {
                                 @if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2)))
                                 {
-                                    <td style="background-color: red" @onclick="() => RemoveRule(instr, instr2)"></td>
+                                    <td style="background-color: red" @onclick="() => RemoveRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                }
+
+                                else if (_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year) > (DateTime.Now.Year - MinYears - 1))
+                                {
+                                    @AddRuleAuto(instr, instr2)
+                                    <td style="background-color: lightpink" @onclick="() => AddRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
                                 }
                                 else
                                 {
-                                    <td @onclick="() => AddRule(instr, instr2)"></td>
+                                    <td @onclick="() => AddRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
                                 }
 
                             }
@@ -104,7 +110,6 @@
                 }
             </table>
 
-
             <h2>Návrhy na další rok</h2>
 
             <h4>Nastavení kombinací</h4>
@@ -114,22 +119,54 @@
                     <td>
                         <input type="checkbox" @onchange="BoyAndGirlSwitch" checked="@BoyAndGirl" />
                     </td>
+                    <td style="background-color: red">Manuální pravidla</td>
+                    <td style="background-color: red">@this._rules.Count</td>
                 </tr>
                 <tr>
                     <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
+                    <td style="background-color: lightpink">
+                        Automatická pravidla
+                    </td>
+                    <td style="background-color: lightpink">
+                        @this._rulesAuto.Count
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=4>Maximální čas generování <input type="number" @onchange="MaxComputeTime" value="@this._maxComputeTime" /> sekund. </td>
                 </tr>
             </table>
 
+            <p>Kliknutím na následující tlačítko se spustí generování - výpočet výsledků může chvíli trvat.</p>
+
+            @if (timeExcited)
+            {
+                <div class="alert alert-danger col-6" role="alert">
+                    Generování překročilo maximální povolený čas (@this._maxComputeTime sekund). Výsledek nemusí být úplný.
+                    <hr />
+                    Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.
+                </div>
+            }
+            else if (_possibleCombinationsTimeMs != 0 && _possibleCombinations.Count == 0)
+            {
+                <div class="alert alert-warning col-6" role="alert">
+                    Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.
+                </div>
+            }
+            else if (_possibleCombinationsTimeMs != 0)
+            {
+                <div class="alert alert-success col-6" role="alert">
+                    Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.
+                </div>
+            }
+
             <div>
-                @if (searching)
-                {
-                    <p>Hledám možné kombinace</p>
-                }
-                else
-                {
-                    <button class="btn btn-primary" @onclick="CalculateCombinations">Vypočítat</button>
-                }
+                <button class="btn btn-outline-primary" @onclick="CalculateCombinations">Vypočítat</button>
             </div>
+
+            @if (_possibleCombinationsTimeMs != 0)
+            {
+                <p></p>
+            }
 
             <table>
                 <thead>
@@ -139,6 +176,7 @@
                         <th colspan="4">Druhý tým</th>
                         <th colspan="4">Třetí tým</th>
                         <th colspan="4">Čtvrtý tým</th>
+                        <th>Fingerprint</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,7 +185,7 @@
                     {
                         <tr>
                             <td>@DateTime.Now.Year</td>
-                            @foreach (var team in combination)
+                            @foreach (var team in combination.Together)
                             {
                                 @foreach (var instructor in team.Instructors)
                                 {
@@ -159,7 +197,9 @@
                                 }
 
                                 <td></td>
+
                             }
+                            <td>@combination.Fingerprint</td>
                         </tr>
                     }
                 </tbody>
@@ -216,57 +256,6 @@
             </table>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-        <div class="col-md-auto">
-            <h2>Naposledy spolu</h2>
-
-            <table>
-                <tr>
-                    <td>x</td>
-                    @foreach (var instr in _instructors)
-                    {
-                        <th style="background-color: @getColor(instr.Id)">
-                            <div class="verticalTableHeader">
-                                @instr.Name
-                            </div>
-                        </th>
-                    }
-                </tr>
-
-                @foreach (var instr in _instructors)
-                {
-                    <tr>
-                        <th style="background-color: @getColor(instr.Id)">@instr.Name</th>
-
-                        @foreach (var instr2 in _instructors)
-                        {
-                            if (instr.Id == instr2.Id)
-                            {
-                                <td>x</td>
-                            }
-                            else
-                            {
-                                <td>@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
-                            }
-
-                        }
-
-                    </tr>
-                }
-            </table>
-
-        </div>
-
     </div>
-
-
 </div>
+

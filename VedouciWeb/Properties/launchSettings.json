@@ -11,6 +11,7 @@
     "VedouciWeb": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "https://localhost:7178/generator",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -22,6 +23,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "http://localhost:39415/generator",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

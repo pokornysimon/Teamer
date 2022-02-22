@@ -26,5 +26,10 @@
             }
             return hits > 1;
         }
+
+        public bool MatchTheRule(Instructor a, Instructor b)
+        {
+            return instructors.Contains(a) && instructors.Contains(b);
+        }
     }
 }

@@ -237,7 +237,7 @@
             {
                 Id = 24,
                 Name = "Nový",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2022
             };
@@ -299,8 +299,6 @@
             Rules.Add(new Rule(simon, fanda));
             Rules.Add(new Rule(simon, misa));
             Rules.Add(new Rule(jolka, fanda));
-            Rules.Add(new Rule(jolka, misa));
-            Rules.Add(new Rule(fanda, misa));
         }
 
     }
