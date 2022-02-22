@@ -106,16 +106,8 @@
 
 
             <h2>Návrhy na další rok</h2>
-            @if (searching)
-            {
-                <p>Hledám možné kombinace</p>
-            }
-            else
-            {
-                <button @onclick="CalculateCombinations">Calculate</button>
-            }
 
-            <h3>Nastavení</h3>
+            <h4>Nastavení kombinací</h4>
             <table>
                 <tr>
                     <td>Každý tým musí obsahovat kluka a holku</td>
@@ -127,6 +119,17 @@
                     <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
                 </tr>
             </table>
+
+            <div>
+                @if (searching)
+                {
+                    <p>Hledám možné kombinace</p>
+                }
+                else
+                {
+                    <button class="btn btn-primary" @onclick="CalculateCombinations">Vypočítat</button>
+                }
+            </div>
 
             <table>
                 <thead>
