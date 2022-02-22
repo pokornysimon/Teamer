@@ -1,0 +1,26 @@
+﻿table {
+    width: auto;
+}
+
+td, th {
+    border: solid black 1px;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.verticalTableHeader {
+    /* text-align: center; */
+    /* white-space: nowrap; */
+    /* transform-origin: 50% 50%; */
+    transform: rotate(-90deg);
+    letter-spacing: 1px;
+}
+
+    .verticalTableHeader:before {
+        content: '';
+        padding-top: 110%; /* takes width as reference, + 10% for faking some extra padding */
+        display: inline-block;
+        vertical-align: middle;
+    }

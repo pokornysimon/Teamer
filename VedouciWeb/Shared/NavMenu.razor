@@ -1,0 +1,26 @@
+﻿<nav class="py-2 bg-light border-bottom">
+    <div class="container-fluid d-flex flex-wrap">
+        <ul class="nav me-auto">
+            <NavLink class="nav-link link-dark px-2" href="/">
+                GENERÁTOR TÝMŮ VEDOUCÍCH
+            </NavLink>
+            <NavLink class="nav-link link-dark px-2" href="/generator">
+                Generátor týmů
+            </NavLink>
+            <NavLink class="nav-link link-dark px-2" href="/manual">
+                Návod
+            </NavLink>
+        </ul>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

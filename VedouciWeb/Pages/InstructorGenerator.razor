@@ -1,0 +1,269 @@
+﻿@page "/generator"
+
+<PageTitle>Generátor týmů</PageTitle>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+</svg>
+
+
+<div class="container-fluid">
+
+    <div class="col-12">
+        <div class="alert alert-primary d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
+            <div>
+                Pokud si nejsi jistý, jak generování funguje, podívej se do návodu na <NavLink class="alert-link" href="/manual">této</NavLink> stránce.
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+
+
+        <div class="col-3">
+
+            <h2>Celkový list vedoucích</h2>
+
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Jméno</th>
+                            <th>Nástup</th>
+                            <th>Pohlaví</th>
+                            <th>Aktivní</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var instructor in this._instructors)
+                        {
+                            <tr>
+                                <td>@instructor.Id</td>
+                                <td style="background-color: @getColor(instructor.Id)">@instructor.Name</td>
+                                <td>@instructor.Year</td>
+                                <td style="background-color: @womanColor(instructor.Woman)"></td>
+                                <td style="background-color: @activeColor(instructor.Active)" @onclick="() => ChangeActiveInstructor(instructor.Id)">
+                                    <input type="checkbox" checked="@instructor.Active" />
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <h2>Mohou být spolu</h2>
+
+            <table>
+                <tr>
+                    <td>x</td>
+                    @foreach (var instr in _instructorsActive)
+                    {
+                        <th style="background-color: @getColor(instr.Id)">
+                            <div class="verticalTableHeader">@instr.Name</div>
+                        </th>
+                    }
+                </tr>
+
+                @foreach (var instr in _instructorsActive)
+                {
+                    <tr>
+                        <th style="background-color: @getColor(instr.Id)">@instr.Name</th>
+
+                        @foreach (var instr2 in _instructorsActive)
+                        {
+                            if (instr.Id == instr2.Id)
+                            {
+                                <td>x</td>
+                            }
+                            else
+                            {
+                                @if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2)))
+                                {
+                                    <td style="background-color: red" @onclick="() => RemoveRule(instr, instr2)"></td>
+                                }
+                                else
+                                {
+                                    <td @onclick="() => AddRule(instr, instr2)"></td>
+                                }
+
+                            }
+
+                        }
+
+                    </tr>
+                }
+            </table>
+
+
+            <h2>Návrhy na další rok</h2>
+            @if (searching)
+            {
+                <p>Hledám možné kombinace</p>
+            }
+            else
+            {
+                <button @onclick="CalculateCombinations">Calculate</button>
+            }
+
+            <h3>Nastavení</h3>
+            <table>
+                <tr>
+                    <td>Každý tým musí obsahovat kluka a holku</td>
+                    <td>
+                        <input type="checkbox" @onchange="BoyAndGirlSwitch" checked="@BoyAndGirl" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
+                </tr>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rok</th>
+                        <th colspan="4">První tým</th>
+                        <th colspan="4">Druhý tým</th>
+                        <th colspan="4">Třetí tým</th>
+                        <th colspan="4">Čtvrtý tým</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var combination in this._possibleCombinations)
+                    {
+                        <tr>
+                            <td>@DateTime.Now.Year</td>
+                            @foreach (var team in combination)
+                            {
+                                @foreach (var instructor in team.Instructors)
+                                {
+                                    <td style="background-color: @getColor(instructor.Id); border-top: 4px solid @womanColor(instructor.Woman)">@instructor.Name</td>
+                                }
+                                @for (int i = 0; i < 3 - team.Instructors.Count; i++)
+                                {
+                                    <td></td>
+                                }
+
+                                <td></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+        <div class="col-md-auto">
+            <h2>Aktivní roky</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rok</th>
+                        <th colspan="4">První tým</th>
+                        <th colspan="4">Druhý tým</th>
+                        <th colspan="4">Třetí tým</th>
+                        <th colspan="4">Čtvrtý tým</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var year in this._together.Select(t => t.Year).Distinct().OrderByDescending(t => t))
+                    {
+                        <tr>
+                            <td>@year</td>
+
+                            @foreach (var together in this._together.Where(t => t.Year == year).OrderBy(t => t.TeamNubmer))
+                            {
+                                @foreach (var instructor in together.Instructors.OrderBy(i => i.Id))
+                                {
+                                    <td style="background-color: @getColor(instructor.Id)">@instructor.Name</td>
+                                }
+
+                                @if (together.Instructors.Count == 2)
+                                {
+                                    <td></td>
+                                }
+                                <td></td>
+                            }
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="17"></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="col-md-auto">
+            <h2>Naposledy spolu</h2>
+
+            <table>
+                <tr>
+                    <td>x</td>
+                    @foreach (var instr in _instructors)
+                    {
+                        <th style="background-color: @getColor(instr.Id)">
+                            <div class="verticalTableHeader">
+                                @instr.Name
+                            </div>
+                        </th>
+                    }
+                </tr>
+
+                @foreach (var instr in _instructors)
+                {
+                    <tr>
+                        <th style="background-color: @getColor(instr.Id)">@instr.Name</th>
+
+                        @foreach (var instr2 in _instructors)
+                        {
+                            if (instr.Id == instr2.Id)
+                            {
+                                <td>x</td>
+                            }
+                            else
+                            {
+                                <td>@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                            }
+
+                        }
+
+                    </tr>
+                }
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
