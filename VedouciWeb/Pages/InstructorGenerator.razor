@@ -55,7 +55,7 @@
             <h2>Vedoucí k dispozici <span>Dohromady @this._instructors.Count</span></h2>
 
             <div>
-                <table class="table">
+                <table>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -88,7 +88,7 @@
         <div class="col-8">
             <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
-            <table class="table">
+            <table>
                 <tr>
                     <td style="background-color: darkgrey">x</td>
                     @foreach (var instr in _instructorsActive)
