@@ -1,10 +1,35 @@
 ﻿@page "/generator"
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+@inject Blazored.LocalStorage.ILocalStorageService localStore
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
     <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
     </symbol>
+
+    <symbol id="download" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+    </symbol>
+
+    <symbol id="upload" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+    </symbol>
+
+    <symbol id="counterclockwise" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+        <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+    </symbol>
+
+    <symbol id="cross" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+        <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+    </symbol>
 </svg>
+
+
 
 
 <div class="container">
@@ -30,7 +55,7 @@
             <h2>Vedoucí k dispozici <span>Dohromady @this._instructors.Count</span></h2>
 
             <div>
-                <table>
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -63,7 +88,7 @@
         <div class="col-8">
             <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
-            <table>
+            <table class="table">
                 <tr>
                     <td style="background-color: darkgrey">x</td>
                     @foreach (var instr in _instructorsActive)
@@ -115,7 +140,7 @@
             <h3>Nastavení kombinačního algoritmu</h3>
             <table>
                 <tr>
-                    <td >Každý tým musí obsahovat kluka a holku</td>
+                    <td>Každý tým musí obsahovat kluka a holku</td>
                     <td>
                         <input type="checkbox" @onchange="BoyAndGirlSwitch" checked="@BoyAndGirl" />
                     </td>
@@ -136,10 +161,43 @@
                 </tr>
             </table>
             <br />
-            <p>Kliknutím na následující tlačítko se spustí generování - výpočet výsledků může chvíli trvat.</p>
-
             <div style="margin-bottom: 10px">
-                <button class="btn btn-outline-primary" @onclick="CalculateCombinations">Vypočítat</button>
+                @if (@emptyLocalStorage)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        V úložišti prohlížeče se nenacházejí žádná data.
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-success" role="alert">
+                        V úložišti prohlížeče se nacházejí data z @localStorageTime.ToShortDateString() @localStorageTime.ToShortTimeString().
+                    </div>
+                    
+                }
+
+
+                <button class="btn btn-outline-success" @onclick="CalculateCombinations">Vygenerovat možnosti</button>
+
+                <button class="btn btn-outline-primary" @onclick="SaveToLocalStorage">
+                    <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Info:"><use xlink:href="#download" /></svg>
+                    Uložit
+                </button>
+
+                <button class="btn btn-outline-primary" @onclick="LoadFromLocalStorage">
+                    <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Info:"><use xlink:href="#upload" /></svg>
+                    Načíst
+                </button>
+
+                <button class="btn btn-outline-danger" @onclick="ClearStorage">
+                    <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Info:"><use xlink:href="#cross" /></svg>
+                    Smazat data
+                </button>
+
+                <button class="btn btn-outline-warning" @onclick="OnInitialized">
+                    <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Info:"><use xlink:href="#counterclockwise" /></svg>
+                    Výchozí nastavení
+                </button>
             </div>
 
         </div>

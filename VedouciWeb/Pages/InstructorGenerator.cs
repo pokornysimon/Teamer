@@ -23,12 +23,27 @@ namespace VedouciWeb.Pages
         private bool searching = false;
         private bool timeExcited = false;
 
-        protected override void OnInitialized()
+        private bool emptyLocalStorage = false;
+        private DateTime localStorageTime = DateTime.MinValue;
+
+        protected override async void OnInitialized()
         {
             BaseData.DefaultConfig();
             this._instructors = BaseData.Instructors;
             this._together = BaseData.Togethers;
             this._rules = BaseData.Rules;
+
+            try
+            {
+                localStorageTime = await localStore.GetItemAsync<DateTime>("time");
+                var instructorsFromStorage = await localStore.GetItemAsync<List<Instructor>>("instructors");
+                var rulesFromStorage = await localStore.GetItemAsync<List<List<Instructor>>>("rules");
+                emptyLocalStorage = !instructorsFromStorage.Any();
+            }
+            catch
+            {
+                emptyLocalStorage = true;
+            }
 
             base.OnInitialized();
         }
@@ -54,6 +69,58 @@ namespace VedouciWeb.Pages
         }
 
 
+        private async void SaveToLocalStorage()
+        {
+            this.localStorageTime = DateTime.Now;
+            await localStore.SetItemAsync("time", this.localStorageTime);
+            await localStore.SetItemAsync("instructors", this._instructors);
+            await localStore.SetItemAsync("rules", this._rules.Select(r => r.instructors).ToList());
+            await localStore.SetItemAsync("years", this.MinYears);
+            await localStore.SetItemAsync("executionTime", this._maxComputeTime);
+            emptyLocalStorage = false;
+            this.StateHasChanged();
+        }
+        private async void LoadFromLocalStorage()
+        {
+            try
+            {
+                var instructorsFromStorage = await localStore.GetItemAsync<List<Instructor>>("instructors");
+                var rulesFromStorage = await localStore.GetItemAsync<List<List<Instructor>>>("rules");
+
+                foreach (var i in instructorsFromStorage)
+                {
+                    var localInstructor = this._instructors.First(inst => inst.Id == i.Id);
+                    localInstructor.Woman = i.Woman;
+                    localInstructor.Active = i.Active;
+                }
+
+                this._rules.Clear();
+                foreach (var r in rulesFromStorage)
+                {
+                    Rule rule = new Rule();
+                    foreach (var i in r)
+                    {
+                        rule.CannotBeTogether(_instructors.First(instr => instr.Id == i.Id));
+                    }
+                    _rules.Add(rule);
+                }
+            }
+            catch
+            {
+                return;
+            }
+
+            this.StateHasChanged();
+        }
+
+        private async void ClearStorage()
+        {
+            await localStore.ClearAsync();
+            emptyLocalStorage = true;
+            this.StateHasChanged();
+        }
+
+
         private string womanColor(bool woman) => woman ? "red" : "blue";
         private string activeColor(bool active) => active ? "lime" : "grey";
 
@@ -63,7 +130,8 @@ namespace VedouciWeb.Pages
         {
             var activeInstructors = this._instructors.Count(i => i.Active);
             var instructor = this._instructors.First(i => i.Id == id);
-            
+
+            this._rules.Where(r => r.instructors.Any(i => i.Id == id)).ToList().ForEach(r => this._rules.Remove(r));
 
             if (instructor.Active || activeInstructors < 12)
             {

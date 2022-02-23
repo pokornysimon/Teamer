@@ -11,6 +11,8 @@
             instructors.Add(b);
         }
 
+        public Rule() { }
+
         public void CannotBeTogether(Instructor i)
         {
             instructors.Add(i);

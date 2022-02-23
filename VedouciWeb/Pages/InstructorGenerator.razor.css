@@ -13,6 +13,7 @@ h2 span {
     font-size: 13px
 }
 
+
 .verticalTableHeader {
     /* text-align: center; */
     /* white-space: nowrap; */
@@ -23,7 +24,7 @@ h2 span {
 
     .verticalTableHeader:before {
         content: '';
-        padding-top: 110%; /* takes width as reference, + 10% for faking some extra padding */
+        padding-top: 70px; /* takes width as reference, + 10% for faking some extra padding */
         display: inline-block;
         vertical-align: middle;
     }
