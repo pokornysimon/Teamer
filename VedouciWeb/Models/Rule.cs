@@ -5,13 +5,16 @@
         public List<Instructor> instructors = new List<Instructor>();
         public bool Active = true;
 
-        public Rule(Instructor a, Instructor b)
+        public bool Together = false;
+
+        public Rule(Instructor a, Instructor b, bool together = false)
         {
             instructors.Add(a);
             instructors.Add(b);
+            this.Together = together;
         }
 
-        public Rule() { }
+        public Rule(bool together = false) { this.Together = together; }
 
         public void CannotBeTogether(Instructor i)
         {

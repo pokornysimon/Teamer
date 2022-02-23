@@ -26,6 +26,18 @@ namespace VedouciWeb.Pages
         private bool emptyLocalStorage = false;
         private DateTime localStorageTime = DateTime.MinValue;
 
+        private bool boysAndGirlsCondition
+        {
+            get
+            {
+                if (BoyAndGirl)
+                    return _instructors.Count(i => i.Woman && i.Active) > 3 && _instructors.Count(i => !i.Woman && i.Active) > 3;
+
+                return true;
+            }
+        }
+
+
         protected override async void OnInitialized()
         {
             BaseData.DefaultConfig();
@@ -189,7 +201,13 @@ namespace VedouciWeb.Pages
         private void AddRule(Instructor a, Instructor b)
         {
             _rulesAuto = new List<Rule>();
-            _rules.Add(new Rule(a, b));
+            _rules.Add(new Rule(a, b, false));
+        }
+
+        private void AddRulePermit(Instructor a, Instructor b)
+        {
+            _rulesAuto = new List<Rule>();
+            _rules.First(r => r.instructors.Contains(a) && r.instructors.Contains(b)).Together = true;
         }
 
         private string AddRuleAuto(Instructor a, Instructor b)

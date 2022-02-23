@@ -88,7 +88,7 @@
         <div class="col-8">
             <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
-            <table>
+            <table class="together">
                 <tr>
                     <td style="background-color: darkgrey">x</td>
                     @foreach (var instr in _instructorsActive)
@@ -112,9 +112,14 @@
                             }
                             else
                             {
-                                @if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2)))
+                                @if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2) && !r.Together))
                                 {
-                                    <td style="background-color: red" @onclick="() => RemoveRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    <td style="background-color: red" @onclick="() => AddRulePermit(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                }
+
+                                else if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2) && r.Together))
+                                {
+                                    <td style="background-color: lime" @onclick="() => RemoveRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
                                 }
 
                                 else if (_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year) > (DateTime.Now.Year - MinYears - 1))
@@ -139,16 +144,23 @@
 
             <h3>Nastavení kombinačního algoritmu</h3>
             <table>
-                <tr>
-                    <td>Každý tým musí obsahovat kluka a holku</td>
-                    <td>
-                        <input type="checkbox" @onchange="BoyAndGirlSwitch" checked="@BoyAndGirl" />
+                <tr style="background-color: @(boysAndGirlsCondition ? "white" : "red")">
+                    <td>Každý tým musí obsahovat kluka a holku (@this._instructors.Count(i => i.Active && i.Woman) holek, @this._instructors.Count(i => i.Active && !i.Woman) kluků)</td>
+                    <td style="padding: 0; width: 40px; height: 35.5px; ">
+                        <div @onclick="BoyAndGirlSwitch" style="display:flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                            <input type="checkbox" checked="@BoyAndGirl" />
+                        </div>
                     </td>
-                    <td style="background-color: red">Manuální pravidla</td>
-                    <td style="background-color: red">@this._rules.Count</td>
+
+                    <td style="background-color: red">
+                        Pravidla bez sebe
+                    </td>
+                    <td style="background-color: red">
+                        @this._rules.Count(r => !r.Together)
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
+                    <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" min="0" max="10" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
                     <td style="background-color: lightpink">
                         Automatická pravidla
                     </td>
@@ -157,7 +169,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan=4>Maximální čas generování <input type="number" @onchange="MaxComputeTime" value="@this._maxComputeTime" /> sekund. </td>
+                    <td colspan=2>
+                        Maximální čas generování <input type="number" min="1" max="60" @onchange="MaxComputeTime" value="@this._maxComputeTime" /> sekund.
+                    </td>
+
+                    <td style="background-color: lime">
+                        Pravidla spolu
+                    </td>
+                    <td style="background-color: lime">
+                        @this._rules.Count(r => r.Together)
+                    </td>
                 </tr>
             </table>
             <br />
@@ -173,7 +194,7 @@
                     <div class="alert alert-success" role="alert">
                         V úložišti prohlížeče se nacházejí data z @localStorageTime.ToShortDateString() @localStorageTime.ToShortTimeString().
                     </div>
-                    
+
                 }
 
 
@@ -196,7 +217,7 @@
 
                 <button class="btn btn-outline-warning" @onclick="OnInitialized">
                     <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Info:"><use xlink:href="#counterclockwise" /></svg>
-                    Výchozí nastavení
+                    Začít znovu
                 </button>
             </div>
 
@@ -209,7 +230,7 @@
 
             @if (timeExcited)
             {
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-warning" role="alert">
                     Generování překročilo maximální povolený čas (@this._maxComputeTime sekund). Výsledek nemusí být úplný.
                     <hr />
                     Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.

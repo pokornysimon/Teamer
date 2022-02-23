@@ -9,7 +9,7 @@
         public static List<Together> Together { get; set; }
         public static List<Rule> Rules { get; set; }
 
-       
+
         public static DateTime ComputationStarted { get; set; }
         public static DateTime ComputationFinished { get; set; }
         public static bool ComputationExcited { get; set; }
@@ -25,7 +25,7 @@
 
             Team workingTeam = new Team(DateTime.Now.Year, 4);
 
-            
+
             ComputationStarted = DateTime.Now;
             Console.WriteLine($"Recurse start  {ComputationStarted.ToString("HH':'mm':'ss.ffff")}");
             CombRecursive(combinationOfInstructors, workingTeam, Instructors.ToArray());
@@ -37,7 +37,7 @@
 
         private static void CombRecursive(List<Team> combinations, Team workingTeam, ReadOnlySpan<Instructor> availableInstructorStack)
         {
-            if ((DateTime.Now - ComputationStarted).Seconds > MAX_COMPUTE_TIME_SECONDS)
+            if ((DateTime.Now - ComputationStarted).Seconds >= MAX_COMPUTE_TIME_SECONDS)
             {
                 ComputationExcited = true;
                 return;
@@ -68,14 +68,11 @@
                         continue;
 
                     workingTeam.AddInstructor(i, workingInstructor);
-                    //workingTeam.Together[i].Instructors.Add(workingInstructor);
 
-                    if (!Rules.Any(rule => rule.MatchTheRule(workingTeam.Together[i].Instructors)))
+                    if (!Rules.Any(rule => rule.MatchTheRule(workingTeam.Together[i].Instructors) && !rule.Together))
                         CombRecursive(combinations, workingTeam, availableInstructorStack[1..]);
 
                     workingTeam.RemoveInstructor(i, workingInstructor);
-                    //workingTeam.Together[i].Instructors.Remove(workingInstructor);
-                    //workingTeam[i].Instructors = workingTeam[i].Instructors.Where(ins => ins.Id != workingInstructor.Id).ToList();
                 }
             }
         }
@@ -95,6 +92,20 @@
 
             if (DuplicateTeam(combination, combinations))
                 return false;
+
+            if (!CheckMustBeTogether(combination))
+                return false;
+
+            return true;
+        }
+
+        private static bool CheckMustBeTogether(Team combination)
+        {
+            foreach (var rule in Rules.Where(r => r.Together))
+            {
+                if (!combination.Together.Any(t => rule.MatchTheRule(t.Instructors)))
+                    return false;
+            }
 
             return true;
         }

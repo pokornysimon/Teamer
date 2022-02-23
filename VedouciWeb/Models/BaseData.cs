@@ -236,7 +236,7 @@
             var tomas = new Instructor()
             {
                 Id = 24,
-                Name = "TomášH",
+                Name = "TomH",
                 Active = true,
                 Woman = false,
                 Year = 2021
@@ -305,10 +305,10 @@
 
 
             // Rules
-            Rules.Add(new Rule(simon, jolka));
-            Rules.Add(new Rule(simon, fanda));
-            Rules.Add(new Rule(simon, misa));
-            Rules.Add(new Rule(jolka, fanda));
+            // Rules.Add(new Rule(simon, jolka));
+            // Rules.Add(new Rule(simon, fanda));
+            // Rules.Add(new Rule(simon, misa));
+            // Rules.Add(new Rule(jolka, fanda));
         }
 
     }

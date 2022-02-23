@@ -13,6 +13,13 @@ h2 span {
     font-size: 13px
 }
 
+.together th {
+    width: calc(100% / 13);
+}
+
+.together > tr:first-child {
+    height: 80px;
+}
 
 .verticalTableHeader {
     /* text-align: center; */
@@ -20,11 +27,7 @@ h2 span {
     /* transform-origin: 50% 50%; */
     transform: rotate(-90deg);
     letter-spacing: 1px;
+    display: flex;
+    height: 20px;
+    justify-content: center;
 }
-
-    .verticalTableHeader:before {
-        content: '';
-        padding-top: 70px; /* takes width as reference, + 10% for faking some extra padding */
-        display: inline-block;
-        vertical-align: middle;
-    }
