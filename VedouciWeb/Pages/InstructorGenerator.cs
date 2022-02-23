@@ -54,15 +54,27 @@ namespace VedouciWeb.Pages
         }
 
 
-        private string womanColor(bool woman) => woman ? "pink" : "blue";
-        private string activeColor(bool active) => active ? "green" : "red";
+        private string womanColor(bool woman) => woman ? "red" : "blue";
+        private string activeColor(bool active) => active ? "lime" : "grey";
 
         private string getColor(int id) => Colorer.GetColorCode(id);
 
         private void ChangeActiveInstructor(int id)
         {
+            var activeInstructors = this._instructors.Count(i => i.Active);
             var instructor = this._instructors.First(i => i.Id == id);
-            instructor.Active = !instructor.Active;
+            
+
+            if (instructor.Active || activeInstructors < 12)
+            {
+                instructor.Active = !instructor.Active;
+            }
+        }
+
+        private void ChangeGenderInstructor(int id)
+        {
+            var instructor = this._instructors.First(i => i.Id == id);
+            instructor.Woman = !instructor.Woman;
         }
 
         private void BoyAndGirlSwitch()

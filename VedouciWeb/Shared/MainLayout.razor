@@ -1,11 +1,17 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
+
     <main>
+
         <NavMenu />
 
-        <article class="content">
-            @Body
-        </article>
+        <div class="content">
+            <div class="container centerWithMargin">
+                @Body
+            </div>
+        </div>
+
     </main>
+
 </div>

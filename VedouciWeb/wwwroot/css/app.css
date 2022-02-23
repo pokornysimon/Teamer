@@ -65,3 +65,8 @@ a, .btn-link {
     }
 
 /* My styles */
+
+.centerWithMargin {
+    margin: 0px auto;
+    width: 100%;
+}

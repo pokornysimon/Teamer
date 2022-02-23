@@ -1,14 +1,17 @@
 ﻿table {
-    width: auto;
+    width: 100%;
 }
 
 td, th {
     border: solid black 1px;
-    padding: 10px;
     text-align: center;
-    font-size: 12px;
+    font-size: 15px;
+    padding: 6px;
 }
 
+h2 span {
+    font-size: 13px
+}
 
 .verticalTableHeader {
     /* text-align: center; */

@@ -1,7 +1,5 @@
 ﻿@page "/generator"
 
-<PageTitle>Generátor týmů</PageTitle>
-
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
@@ -9,13 +7,15 @@
 </svg>
 
 
-<div class="container-fluid">
+<div class="container">
 
-    <div class="col-12">
-        <div class="alert alert-primary d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
-            <div>
-                Pokud si nejsi jistý, jak generování funguje, podívej se do návodu na <NavLink class="alert-link" href="/manual">této</NavLink> stránce.
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
+                <div>
+                    Pokud si nejsi jistý, jak generování funguje, podívej se do návodu na <NavLink class="alert-link" href="/manual">této</NavLink> stránce.
+                </div>
             </div>
         </div>
     </div>
@@ -25,9 +25,9 @@
     <div class="row">
 
 
-        <div class="col-3">
+        <div class="col-4">
 
-            <h2>Celkový list vedoucích</h2>
+            <h2>Vedoucí k dispozici <span>Dohromady @this._instructors.Count</span></h2>
 
             <div>
                 <table>
@@ -47,7 +47,7 @@
                                 <td>@instructor.Id</td>
                                 <td style="background-color: @getColor(instructor.Id)">@instructor.Name</td>
                                 <td>@instructor.Year</td>
-                                <td style="background-color: @womanColor(instructor.Woman)"></td>
+                                <td style="background-color: @womanColor(instructor.Woman)" @onclick="() => ChangeGenderInstructor(instructor.Id)"></td>
                                 <td style="background-color: @activeColor(instructor.Active)" @onclick="() => ChangeActiveInstructor(instructor.Id)">
                                     <input type="checkbox" checked="@instructor.Active" />
                                 </td>
@@ -60,8 +60,8 @@
         </div>
 
 
-        <div class="col">
-            <h2>Mohou být spolu</h2>
+        <div class="col-8">
+            <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
             <table>
                 <tr>
@@ -110,12 +110,12 @@
                 }
             </table>
 
-            <h2>Návrhy na další rok</h2>
+            <br />
 
-            <h4>Nastavení kombinací</h4>
+            <h3>Nastavení kombinačního algoritmu</h3>
             <table>
                 <tr>
-                    <td>Každý tým musí obsahovat kluka a holku</td>
+                    <td >Každý tým musí obsahovat kluka a holku</td>
                     <td>
                         <input type="checkbox" @onchange="BoyAndGirlSwitch" checked="@BoyAndGirl" />
                     </td>
@@ -135,12 +135,23 @@
                     <td colspan=4>Maximální čas generování <input type="number" @onchange="MaxComputeTime" value="@this._maxComputeTime" /> sekund. </td>
                 </tr>
             </table>
-
+            <br />
             <p>Kliknutím na následující tlačítko se spustí generování - výpočet výsledků může chvíli trvat.</p>
+
+            <div style="margin-bottom: 10px">
+                <button class="btn btn-outline-primary" @onclick="CalculateCombinations">Vypočítat</button>
+            </div>
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+
 
             @if (timeExcited)
             {
-                <div class="alert alert-danger col-6" role="alert">
+                <div class="alert alert-danger" role="alert">
                     Generování překročilo maximální povolený čas (@this._maxComputeTime sekund). Výsledek nemusí být úplný.
                     <hr />
                     Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.
@@ -148,35 +159,25 @@
             }
             else if (_possibleCombinationsTimeMs != 0 && _possibleCombinations.Count == 0)
             {
-                <div class="alert alert-warning col-6" role="alert">
+                <div class="alert alert-warning" role="alert">
                     Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.
                 </div>
             }
             else if (_possibleCombinationsTimeMs != 0)
             {
-                <div class="alert alert-success col-6" role="alert">
+                <div class="alert alert-success" role="alert">
                     Nalezeno @_possibleCombinations.Count výsledků za @_possibleCombinationsTimeMs milisekund.
                 </div>
-            }
-
-            <div>
-                <button class="btn btn-outline-primary" @onclick="CalculateCombinations">Vypočítat</button>
-            </div>
-
-            @if (_possibleCombinationsTimeMs != 0)
-            {
-                <p></p>
             }
 
             <table>
                 <thead>
                     <tr>
-                        <th>Rok</th>
+                        <th title="Tooltip on top">Rok</th>
                         <th colspan="4">První tým</th>
                         <th colspan="4">Druhý tým</th>
                         <th colspan="4">Třetí tým</th>
                         <th colspan="4">Čtvrtý tým</th>
-                        <th>Fingerprint</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -199,20 +200,18 @@
                                 <td></td>
 
                             }
-                            <td>@combination.Fingerprint</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+    </div>
 
+    <hr />
 
+    <div class="row">
 
-
-
-
-
-        <div class="col-md-auto">
+        <div class="col">
             <h2>Aktivní roky</h2>
 
             <table>
@@ -255,6 +254,8 @@
                 </tbody>
             </table>
         </div>
+
+
 
     </div>
 </div>

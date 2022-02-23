@@ -233,9 +233,19 @@
             };
             Instructors.Add(ajka);
 
-            var novy1 = new Instructor()
+            var tomas = new Instructor()
             {
                 Id = 24,
+                Name = "TomášH",
+                Active = true,
+                Woman = false,
+                Year = 2021
+            };
+            Instructors.Add(tomas);
+
+            var novy1 = new Instructor()
+            {
+                Id = 25,
                 Name = "Nový",
                 Active = false,
                 Woman = true,
@@ -248,7 +258,7 @@
             Togethers.Add(new Together(jolka, filip, 2021, 1));
             Togethers.Add(new Together(misa, kubaj, 2021, 2));
             Togethers.Add(new Together(blaza, kubam, julca, 2021, 3));
-            Togethers.Add(new Together(simon, fanda, ancad, 2021, 4));
+            Togethers.Add(new Together(simon, fanda, tomas, 2021, 4));
 
 
             // 2020
