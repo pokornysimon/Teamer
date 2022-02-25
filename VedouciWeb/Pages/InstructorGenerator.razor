@@ -50,7 +50,7 @@
     <div class="row">
 
 
-        <div class="col-md-12 col-lg-4">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
 
             <h2>Vedoucí k dispozici <span>Dohromady @this._instructors.Count</span></h2>
 
@@ -69,12 +69,20 @@
                             <td>@instructor.Id</td>
                             <td style="background-color: @getColor(instructor.Id)">
                                 @instructor.Name
-                                <img src="@instructor.Photo" style="width: 100px" />
+                                <img src="@instructor.Photo" />
                             </td>
                             <td>@instructor.Year</td>
                             <td style="background-color: @womanColor(instructor.Woman)" @onclick="() => ChangeGenderInstructor(instructor.Id)"></td>
                             <td style="background-color: @activeColor(instructor.Active)" @onclick="() => ChangeActiveInstructor(instructor.Id)">
-                                <input type="checkbox" checked="@instructor.Active" />
+                                @if (this._instructors.Count(i => i.Active) == 12 && !instructor.Active)
+                                {
+                                    <input type="checkbox" disabled checked="@instructor.Active" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" checked="@instructor.Active" />
+                                }
+
                             </td>
                         </tr>
                     }
@@ -83,7 +91,7 @@
         </div>
 
 
-        <div class="col">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
             <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
             <div class="table-responsive">
@@ -228,8 +236,13 @@
     <div class="row">
         <div class="col">
 
-
-            @if (timeExcited)
+            @if (this.ComputationError)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @this.ComputationErrorMessage
+                </div>
+            }
+            else if (timeExcited)
             {
                 <div class="alert alert-warning" role="alert">
                     Generování překročilo maximální povolený čas (@this._maxComputeTime sekund). Výsledek nemusí být úplný.
@@ -268,11 +281,11 @@
                                 <div class="teamLook">
                                     @foreach (var team in combination.Together)
                                     {
-                                        @foreach (var instructor in team.Instructors)
-                                        {
-                                            <img src="@instructor.Photo" />
-                                        }
-                                        <div style="width:10px; background-color: white;">
+                                        <div class="hoverTeam">
+                                            @foreach (var instructor in team.Instructors)
+                                            {
+                                                <img src="@instructor.Photo" class="avatar" alt="@instructor.Name" />
+                                            }
                                         </div>
                                     }
                                 </div>

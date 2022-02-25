@@ -23,8 +23,11 @@ namespace VedouciWeb.Pages
         private bool searching = false;
         private bool timeExcited = false;
 
-        private bool emptyLocalStorage = false;
+        private bool emptyLocalStorage = true;
         private DateTime localStorageTime = DateTime.MinValue;
+
+        private bool ComputationError = false;
+        private string ComputationErrorMessage = string.Empty;
 
         private bool boysAndGirlsCondition
         {
@@ -64,6 +67,17 @@ namespace VedouciWeb.Pages
         {
             searching = true;
             timeExcited = false;
+
+            this.ComputationError = false;
+            this.ComputationErrorMessage = string.Empty;
+
+            if(this.BoyAndGirl && (this._instructors.Count(i => i.Active && i.Woman) < 4 || this._instructors.Count(i => i.Active && !i.Woman) < 4))
+            {
+                ComputationError = true;
+                ComputationErrorMessage = "Není dostatek chlapců a dívek pro každý tým. Přidej dívky nebo chlapce, případně vypni pravidlo, že každý tým musí obsahovat chlapce i dívku.";
+                return;
+            }
+
             Combinator.Instructors = this._instructors.Where(instr => instr.Active).ToList();
             Combinator.Together = this._together;
             Combinator.Rules = new();
