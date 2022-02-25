@@ -29,17 +29,22 @@ td > img, td .teamLook {
     display: none;
 }
 
-#seznamVedoucich td:hover img, #generovaniVedouci td:hover img {
+#seznamVedoucich td:hover img {
     display: block;
     position: absolute;
     margin-top: -60px;
     margin-left: 80px;
-    width:50px;
+    width:100px;
 }
 
 #generovaniVedouci td:hover .teamLook {
-    display: block;
-    position: relative;
+    display: flex;
+    position: absolute; 
+    margin-top: -60px;
+    margin-left: 80px;
+    /*width: 60px;*/
+    height: 100px;
+    border: 10px solid white;
 }
 
 
@@ -53,3 +58,4 @@ td > img, td .teamLook {
     height: 20px;
     justify-content: center;
 }
+

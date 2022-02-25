@@ -50,7 +50,7 @@
     <div class="row">
 
 
-        <div class="col-4">
+        <div class="col-md-12 col-lg-4">
 
             <h2>Vedoucí k dispozici <span>Dohromady @this._instructors.Count</span></h2>
 
@@ -83,7 +83,7 @@
         </div>
 
 
-        <div class="col-8">
+        <div class="col">
             <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
             <div class="table-responsive">
@@ -272,6 +272,8 @@
                                         {
                                             <img src="@instructor.Photo" />
                                         }
+                                        <div style="width:10px; background-color: white;">
+                                        </div>
                                     }
                                 </div>
 
@@ -353,6 +355,8 @@
 
 
 
+    </div>
+    <div style="height:100px;">
     </div>
 </div>
 
