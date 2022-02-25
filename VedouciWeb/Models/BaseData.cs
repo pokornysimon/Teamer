@@ -18,7 +18,8 @@
                 Name = "Šimon",
                 Active = true,
                 Woman = false,
-                Year = 2014
+                Year = 2014,
+                Photo = "/img/simon.png"
             };
             Instructors.Add(simon);
 
@@ -28,7 +29,8 @@
                 Name = "Fanda",
                 Active = true,
                 Woman = false,
-                Year = 2013
+                Year = 2013,
+                Photo = "/img/fanda.png"
             };
             Instructors.Add(fanda);
 
@@ -38,7 +40,8 @@
                 Name = "Jolka",
                 Active = true,
                 Woman = true,
-                Year = 2014
+                Year = 2014,
+                Photo = "/img/jolka.png"
             };
             Instructors.Add(jolka);
 
@@ -48,7 +51,8 @@
                 Name = "Bláža",
                 Active = true,
                 Woman = false,
-                Year = 2014
+                Year = 2014,
+                Photo = "/img/blaza.png"
             };
             Instructors.Add(blaza);
 
@@ -58,7 +62,8 @@
                 Name = "Míša",
                 Active = true,
                 Woman = true,
-                Year = 2014
+                Year = 2014,
+                Photo = "/img/misa.png"
             };
             Instructors.Add(misa);
 
@@ -68,7 +73,8 @@
                 Name = "KubaM",
                 Active = true,
                 Woman = false,
-                Year = 2017
+                Year = 2017,
+                Photo = "/img/kubam.png"
 
             };
             Instructors.Add(kubam);
@@ -79,7 +85,8 @@
                 Name = "Filip",
                 Active = true,
                 Woman = false,
-                Year = 2018
+                Year = 2018,
+                Photo = "/img/filip.png"
             };
             Instructors.Add(filip);
 
@@ -89,7 +96,8 @@
                 Name = "KubaJ",
                 Active = true,
                 Woman = false,
-                Year = 2018
+                Year = 2018,
+                Photo = "/img/kubaj.png"
             };
             Instructors.Add(kubaj);
 
@@ -99,7 +107,8 @@
                 Name = "Julča",
                 Active = true,
                 Woman = true,
-                Year = 2020
+                Year = 2020,
+                Photo = "/img/julca.png"
             };
             Instructors.Add(julca);
 
@@ -119,7 +128,8 @@
                 Name = "Krňa",
                 Active = true,
                 Woman = true,
-                Year = 2013
+                Year = 2013,
+                Photo = "/img/krna.png"
             };
             Instructors.Add(krna);
 
@@ -239,7 +249,8 @@
                 Name = "TomH",
                 Active = true,
                 Woman = false,
-                Year = 2021
+                Year = 2021,
+                Photo = "/img/tomash.png"
             };
             Instructors.Add(tomas);
 

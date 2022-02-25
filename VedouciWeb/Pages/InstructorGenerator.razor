@@ -54,32 +54,30 @@
 
             <h2>Vedoucí k dispozici <span>Dohromady @this._instructors.Count</span></h2>
 
-            <div>
-                <table>
-                    <thead>
+            <div class="table-responsive">
+                <table id="seznamVedoucich">
+                    <tr class="bottomHigher">
+                        <th>Id</th>
+                        <th>Jméno</th>
+                        <th>Nástup</th>
+                        <th>Pohlaví</th>
+                        <th>Aktivní</th>
+                    </tr>
+                    @foreach (var instructor in this._instructors)
+                    {
                         <tr>
-                            <th>Id</th>
-                            <th>Jméno</th>
-                            <th>Nástup</th>
-                            <th>Pohlaví</th>
-                            <th>Aktivní</th>
+                            <td>@instructor.Id</td>
+                            <td style="background-color: @getColor(instructor.Id)">
+                                @instructor.Name
+                                <img src="@instructor.Photo" style="width: 100px" />
+                            </td>
+                            <td>@instructor.Year</td>
+                            <td style="background-color: @womanColor(instructor.Woman)" @onclick="() => ChangeGenderInstructor(instructor.Id)"></td>
+                            <td style="background-color: @activeColor(instructor.Active)" @onclick="() => ChangeActiveInstructor(instructor.Id)">
+                                <input type="checkbox" checked="@instructor.Active" />
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var instructor in this._instructors)
-                        {
-                            <tr>
-                                <td>@instructor.Id</td>
-                                <td style="background-color: @getColor(instructor.Id)">@instructor.Name</td>
-                                <td>@instructor.Year</td>
-                                <td style="background-color: @womanColor(instructor.Woman)" @onclick="() => ChangeGenderInstructor(instructor.Id)"></td>
-                                <td style="background-color: @activeColor(instructor.Active)" @onclick="() => ChangeActiveInstructor(instructor.Id)">
-                                    <input type="checkbox" checked="@instructor.Active" />
-                                </td>
-                            </tr>
-                        }
-
-                    </tbody>
+                    }
                 </table>
             </div>
         </div>
@@ -88,99 +86,102 @@
         <div class="col-8">
             <h2>Mohou být spolu <span>Vybráno @this._instructors.Count(i => i.Active) instruktorů</span></h2>
 
-            <table class="together">
-                <tr>
-                    <td style="background-color: darkgrey">x</td>
+            <div class="table-responsive">
+                <table class="together">
+                    <tr>
+                        <td style="background-color: darkgrey">x</td>
+                        @foreach (var instr in _instructorsActive)
+                        {
+                            <th style="background-color: @getColor(instr.Id)">
+                                <div class="verticalTableHeader">@instr.Name</div>
+                            </th>
+                        }
+                    </tr>
+
                     @foreach (var instr in _instructorsActive)
                     {
-                        <th style="background-color: @getColor(instr.Id)">
-                            <div class="verticalTableHeader">@instr.Name</div>
-                        </th>
-                    }
-                </tr>
+                        <tr>
+                            <th style="background-color: @getColor(instr.Id)">@instr.Name</th>
 
-                @foreach (var instr in _instructorsActive)
-                {
-                    <tr>
-                        <th style="background-color: @getColor(instr.Id)">@instr.Name</th>
-
-                        @foreach (var instr2 in _instructorsActive)
-                        {
-                            if (instr.Id == instr2.Id)
+                            @foreach (var instr2 in _instructorsActive)
                             {
-                                <td style="background-color: darkgrey">x</td>
-                            }
-                            else
-                            {
-                                @if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2) && !r.Together))
+                                if (instr.Id == instr2.Id)
                                 {
-                                    <td style="background-color: red" @onclick="() => AddRulePermit(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
-                                }
-
-                                else if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2) && r.Together))
-                                {
-                                    <td style="background-color: lime" @onclick="() => RemoveRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
-                                }
-
-                                else if (_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year) > (DateTime.Now.Year - MinYears - 1))
-                                {
-                                    @AddRuleAuto(instr, instr2)
-                                    <td style="background-color: lightpink" @onclick="() => AddRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    <td style="background-color: darkgrey">x</td>
                                 }
                                 else
                                 {
-                                    <td @onclick="() => AddRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    @if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2) && !r.Together))
+                                    {
+                                        <td style="background-color: red" @onclick="() => AddRulePermit(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    }
+
+                                    else if (_rules.Any(r => r.instructors.Contains(instr) && r.instructors.Contains(instr2) && r.Together))
+                                    {
+                                        <td style="background-color: lime" @onclick="() => RemoveRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    }
+
+                                    else if (_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year) > (DateTime.Now.Year - MinYears - 1))
+                                    {
+                                        @AddRuleAuto(instr, instr2)
+                                        <td style="background-color: lightpink" @onclick="() => AddRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    }
+                                    else
+                                    {
+                                        <td @onclick="() => AddRule(instr, instr2)">@_together.Where(t => t.Instructors.Contains(instr) && t.Instructors.Contains(instr2)).Max(t => (int?)t.Year)</td>
+                                    }
+
                                 }
 
                             }
 
-                        }
-
-                    </tr>
-                }
-            </table>
-
+                        </tr>
+                    }
+                </table>
+            </div>
             <br />
 
             <h3>Nastavení kombinačního algoritmu</h3>
-            <table>
-                <tr style="background-color: @(boysAndGirlsCondition ? "white" : "red")">
-                    <td>Každý tým musí obsahovat kluka a holku (@this._instructors.Count(i => i.Active && i.Woman) holek, @this._instructors.Count(i => i.Active && !i.Woman) kluků)</td>
-                    <td style="padding: 0; width: 40px; height: 35.5px; ">
-                        <div @onclick="BoyAndGirlSwitch" style="display:flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-                            <input type="checkbox" checked="@BoyAndGirl" />
-                        </div>
-                    </td>
+            <div class="table-responsive">
+                <table>
+                    <tr style="background-color: @(boysAndGirlsCondition ? "white" : "red")">
+                        <td>Každý tým musí obsahovat kluka a holku (@this._instructors.Count(i => i.Active && i.Woman) holek, @this._instructors.Count(i => i.Active && !i.Woman) kluků)</td>
+                        <td style="padding: 0; width: 40px; height: 35.5px; ">
+                            <div @onclick="BoyAndGirlSwitch" style="display:flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                                <input type="checkbox" checked="@BoyAndGirl" />
+                            </div>
+                        </td>
 
-                    <td style="background-color: red">
-                        Pravidla bez sebe
-                    </td>
-                    <td style="background-color: red">
-                        @this._rules.Count(r => !r.Together)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" min="0" max="10" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
-                    <td style="background-color: lightpink">
-                        Automatická pravidla
-                    </td>
-                    <td style="background-color: lightpink">
-                        @this._rulesAuto.Count
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan=2>
-                        Maximální čas generování <input type="number" min="1" max="60" @onchange="MaxComputeTime" value="@this._maxComputeTime" /> sekund.
-                    </td>
+                        <td style="background-color: red">
+                            Pravidla bez sebe
+                        </td>
+                        <td style="background-color: red">
+                            @this._rules.Count(r => !r.Together)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>Vedoucí spolu nebyli minimálně <input type="number" min="0" max="10" @onchange="MinYearChange" value="@this.MinYears" /> rok/y/ů. </td>
+                        <td style="background-color: lightpink">
+                            Automatická pravidla
+                        </td>
+                        <td style="background-color: lightpink">
+                            @this._rulesAuto.Count
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>
+                            Maximální čas generování <input type="number" min="1" max="60" @onchange="MaxComputeTime" value="@this._maxComputeTime" /> sekund.
+                        </td>
 
-                    <td style="background-color: lime">
-                        Pravidla spolu
-                    </td>
-                    <td style="background-color: lime">
-                        @this._rules.Count(r => r.Together)
-                    </td>
-                </tr>
-            </table>
+                        <td style="background-color: lime">
+                            Pravidla spolu
+                        </td>
+                        <td style="background-color: lime">
+                            @this._rules.Count(r => r.Together)
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <br />
             <div style="margin-bottom: 10px">
                 @if (@emptyLocalStorage)
@@ -249,8 +250,8 @@
                 </div>
             }
 
-            <table>
-                <thead>
+            <div class="table-responsive">
+                <table id="generovaniVedouci">
                     <tr>
                         <th title="Tooltip on top">Rok</th>
                         <th colspan="4">První tým</th>
@@ -258,18 +259,32 @@
                         <th colspan="4">Třetí tým</th>
                         <th colspan="4">Čtvrtý tým</th>
                     </tr>
-                </thead>
-                <tbody>
 
                     @foreach (var combination in this._possibleCombinations)
                     {
                         <tr>
-                            <td>@DateTime.Now.Year</td>
+                            <td>
+                                @DateTime.Now.Year
+                                <div class="teamLook">
+                                    @foreach (var team in combination.Together)
+                                    {
+                                        @foreach (var instructor in team.Instructors)
+                                        {
+                                            <img src="@instructor.Photo" />
+                                        }
+                                    }
+                                </div>
+
+
+                            </td>
                             @foreach (var team in combination.Together)
                             {
                                 @foreach (var instructor in team.Instructors)
                                 {
-                                    <td style="background-color: @getColor(instructor.Id); border-top: 4px solid @womanColor(instructor.Woman)">@instructor.Name</td>
+                                    <td style="background-color: @getColor(instructor.Id); border-top: 4px solid @womanColor(instructor.Woman)">
+                                        @instructor.Name
+
+                                    </td>
                                 }
                                 @for (int i = 0; i < 3 - team.Instructors.Count; i++)
                                 {
@@ -281,8 +296,8 @@
                             }
                         </tr>
                     }
-                </tbody>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -293,45 +308,47 @@
         <div class="col">
             <h2>Aktivní roky</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rok</th>
-                        <th colspan="4">První tým</th>
-                        <th colspan="4">Druhý tým</th>
-                        <th colspan="4">Třetí tým</th>
-                        <th colspan="4">Čtvrtý tým</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var year in this._together.Select(t => t.Year).Distinct().OrderByDescending(t => t))
-                    {
+            <div class="table-responsive">
+                <table>
+                    <thead>
                         <tr>
-                            <td>@year</td>
+                            <th>Rok</th>
+                            <th colspan="4">První tým</th>
+                            <th colspan="4">Druhý tým</th>
+                            <th colspan="4">Třetí tým</th>
+                            <th colspan="4">Čtvrtý tým</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                            @foreach (var together in this._together.Where(t => t.Year == year).OrderBy(t => t.TeamNubmer))
-                            {
-                                @foreach (var instructor in together.Instructors.OrderBy(i => i.Id))
-                                {
-                                    <td style="background-color: @getColor(instructor.Id)">@instructor.Name</td>
-                                }
+                        @foreach (var year in this._together.Select(t => t.Year).Distinct().OrderByDescending(t => t))
+                        {
+                            <tr>
+                                <td>@year</td>
 
-                                @if (together.Instructors.Count == 2)
+                                @foreach (var together in this._together.Where(t => t.Year == year).OrderBy(t => t.TeamNubmer))
                                 {
+                                    @foreach (var instructor in together.Instructors.OrderBy(i => i.Id))
+                                    {
+                                        <td style="background-color: @getColor(instructor.Id)">@instructor.Name</td>
+                                    }
+
+                                    @if (together.Instructors.Count == 2)
+                                    {
+                                        <td></td>
+                                    }
                                     <td></td>
                                 }
-                                <td></td>
-                            }
 
 
-                        </tr>
-                        <tr>
-                            <td colspan="17"></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </tr>
+                            <tr>
+                                <td colspan="17"></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 

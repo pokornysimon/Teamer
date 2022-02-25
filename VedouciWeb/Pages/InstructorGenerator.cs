@@ -134,7 +134,7 @@ namespace VedouciWeb.Pages
 
 
         private string womanColor(bool woman) => woman ? "red" : "blue";
-        private string activeColor(bool active) => active ? "lime" : "grey";
+        private string activeColor(bool active) => active ? "#c9ffc9" : "#dddddd";
 
         private string getColor(int id) => Colorer.GetColorCode(id);
 

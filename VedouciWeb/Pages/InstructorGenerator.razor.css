@@ -3,7 +3,7 @@
 }
 
 td, th {
-    border: solid black 1px;
+    border: solid #6c757d 1px;
     text-align: center;
     font-size: 15px;
     padding: 6px;
@@ -13,6 +13,10 @@ h2 span {
     font-size: 13px
 }
 
+.bottomHigher {
+    border-bottom: solid #6c757d 2px;
+}
+
 .together th {
     width: calc(100% / 13);
 }
@@ -20,6 +24,24 @@ h2 span {
 .together > tr:first-child {
     height: 80px;
 }
+
+td > img, td .teamLook {
+    display: none;
+}
+
+#seznamVedoucich td:hover img, #generovaniVedouci td:hover img {
+    display: block;
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 80px;
+    width:50px;
+}
+
+#generovaniVedouci td:hover .teamLook {
+    display: block;
+    position: relative;
+}
+
 
 .verticalTableHeader {
     /* text-align: center; */

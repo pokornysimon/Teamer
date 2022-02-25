@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\img\blaza.png" />
+    <None Include="wwwroot\img\fanda.png" />
+    <None Include="wwwroot\img\filip.png" />
+    <None Include="wwwroot\img\Jolka.png" />
+    <None Include="wwwroot\img\Julca.png" />
+    <None Include="wwwroot\img\krna.png" />
+    <None Include="wwwroot\img\kubaj.png" />
+    <None Include="wwwroot\img\kubam.png" />
+    <None Include="wwwroot\img\misa.png" />
+    <None Include="wwwroot\img\simon.png" />
+    <None Include="wwwroot\img\tomash.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
