@@ -15,6 +15,8 @@ namespace VedouciWeb.Pages
         private List<Rule> _rules = new List<Rule>();
         private List<Rule> _rulesAuto = new List<Rule>();
 
+        private List<Team> _savedCombinations = new List<Team>();
+
         // Settings
         private bool BoyAndGirl = true;
         private int MinYears = 3;
@@ -71,7 +73,7 @@ namespace VedouciWeb.Pages
             this.ComputationError = false;
             this.ComputationErrorMessage = string.Empty;
 
-            if(this.BoyAndGirl && (this._instructors.Count(i => i.Active && i.Woman) < 4 || this._instructors.Count(i => i.Active && !i.Woman) < 4))
+            if (this.BoyAndGirl && (this._instructors.Count(i => i.Active && i.Woman) < 4 || this._instructors.Count(i => i.Active && !i.Woman) < 4))
             {
                 ComputationError = true;
                 ComputationErrorMessage = "Není dostatek chlapců a dívek pro každý tým. Přidej dívky nebo chlapce, případně vypni pravidlo, že každý tým musí obsahovat chlapce i dívku.";
@@ -232,5 +234,12 @@ namespace VedouciWeb.Pages
             return "";
         }
 
+        private void ToggleCombination(Team t)
+        {
+            if (!this._savedCombinations.Exists(team => team.Fingerprint == t.Fingerprint))
+                this._savedCombinations.Add(t);
+            else
+                this._savedCombinations.Remove(this._savedCombinations.First(team => team.Fingerprint == t.Fingerprint));
+        }
     }
 }

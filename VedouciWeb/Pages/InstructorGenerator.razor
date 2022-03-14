@@ -276,8 +276,9 @@
                     @foreach (var combination in this._possibleCombinations)
                     {
                         <tr>
-                            <td>
+                            <td @onclick="() => ToggleCombination(combination)">
                                 @DateTime.Now.Year
+                                <input type="checkbox" checked="@_savedCombinations.Any(team => team.Fingerprint == combination.Fingerprint)" />
                                 <div class="teamLook">
                                     @foreach (var team in combination.Together)
                                     {
@@ -316,6 +317,65 @@
         </div>
     </div>
 
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <h2>Připnuté kombinace</h2>
+
+            <div class="table-responsive">
+                <table id="generovaniVedouci">
+                    <tr>
+                        <th title="Tooltip on top">Rok</th>
+                        <th colspan="4">První tým</th>
+                        <th colspan="4">Druhý tým</th>
+                        <th colspan="4">Třetí tým</th>
+                        <th colspan="4">Čtvrtý tým</th>
+                    </tr>
+
+                    @foreach (var combination in this._savedCombinations)
+                    {
+                        <tr>
+                            <td @onclick="() => ToggleCombination(combination)">
+                                @DateTime.Now.Year
+                                <input type="checkbox" checked="@_savedCombinations.Any(team => team.Fingerprint == combination.Fingerprint)" />
+                                <div class="teamLook">
+                                    @foreach (var team in combination.Together)
+                                    {
+                                        <div class="hoverTeam">
+                                            @foreach (var instructor in team.Instructors)
+                                            {
+                                                <img src="@instructor.Photo" class="avatar" alt="@instructor.Name" />
+                                            }
+                                        </div>
+                                    }
+                                </div>
+
+
+                            </td>
+                            @foreach (var team in combination.Together)
+                            {
+                                @foreach (var instructor in team.Instructors)
+                                {
+                                    <td style="background-color: @getColor(instructor.Id); border-top: 4px solid @womanColor(instructor.Woman)">
+                                        @instructor.Name
+
+                                    </td>
+                                }
+                                @for (int i = 0; i < 3 - team.Instructors.Count; i++)
+                                {
+                                    <td></td>
+                                }
+
+                                <td></td>
+
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
     <hr />
 
     <div class="row">
