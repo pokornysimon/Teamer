@@ -18,8 +18,8 @@ namespace VedouciWeb.Pages
         private List<Team> _savedCombinations = new List<Team>();
 
         // Settings
-        private bool BoyAndGirl = true;
-        private int MinYears = 3;
+        private bool BoyAndGirl = false;
+        private int MinYears = 5;
         private int _maxComputeTime = 10;
 
         private bool searching = false;

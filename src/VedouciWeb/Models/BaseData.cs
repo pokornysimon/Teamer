@@ -38,7 +38,7 @@
             {
                 Id = 3,
                 Name = "Jolka",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2014,
                 Photo = "/img/jolka.png"
@@ -116,7 +116,7 @@
             {
                 Id = 10,
                 Name = "AnčaD",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2020,
                 Photo = "/img/ancad.png"
@@ -128,7 +128,7 @@
                 Id = 11,
                 Name = "Krňa",
                 Active = true,
-                Woman = true,
+                Woman = false,
                 Year = 2013,
                 Photo = "/img/krna.png"
             };
