@@ -127,7 +127,7 @@
             {
                 Id = 11,
                 Name = "Krňa",
-                Active = true,
+                Active = false,
                 Woman = false,
                 Year = 2013,
                 Photo = "/img/krna.png"
