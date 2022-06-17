@@ -46,7 +46,7 @@ namespace VedouciWeb.Pages
         protected override async void OnInitialized()
         {
             BaseData.DefaultConfig();
-            this._instructors = BaseData.Instructors;
+            this._instructors = BaseData.Instructors.OrderByDescending(i => i.Active).ThenBy(i => i.Year).ToList();
             this._together = BaseData.Togethers;
             this._rules = BaseData.Rules;
 

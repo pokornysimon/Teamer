@@ -29,7 +29,7 @@
                 Name = "Fanda",
                 Active = true,
                 Woman = false,
-                Year = 2013,
+                Year = 2014,
                 Photo = "/img/fanda.png"
             };
             Instructors.Add(fanda);
