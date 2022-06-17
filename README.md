@@ -1,5 +1,8 @@
 # Teamer
 
+[![Build and deploy ASP.Net Core app to Azure Web App - ymcagenerator](https://github.com/pokornysimon/Teamer/actions/workflows/master_ymcagenerator.yml/badge.svg)](https://github.com/pokornysimon/Teamer/actions/workflows/master_ymcagenerator.yml)
+
+
 Last released version is [here](https://ymcagenerator.azurewebsites.net/generator) (if you want to check it).
 
 Purpose of this application is to generate different teams based on different rules which could be:
@@ -10,7 +13,7 @@ Purpose of this application is to generate different teams based on different ru
 
 One of the purposes was to try the [Blazor Webassembly](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) system that was presented by Microsoft a few years ago.
 
-# What you should know
+## What you should know
  - Whole appliaction is in Czech language (no option to switch it now)
  - All conputation is done on the UI thread (no backend needed). Keep in mind that sometimes it could be slow.
  - Is is not the most optimal solution. Please don't hate me for front-end code, I know those mess should be separated in different files.
