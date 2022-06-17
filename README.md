@@ -1,5 +1,8 @@
 # Teamer
 
+[![Build and deploy ASP.Net Core app to Azure Web App - ymcagenerator](https://github.com/pokornysimon/Teamer/actions/workflows/master_ymcagenerator.yml/badge.svg)](https://github.com/pokornysimon/Teamer/actions/workflows/master_ymcagenerator.yml)
+
+
 Last released version is [here](https://ymcagenerator.azurewebsites.net/generator) (if you want to check it).
 
 Purpose of this application is to generate different teams based on different rules which could be:
