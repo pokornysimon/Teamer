@@ -3,7 +3,6 @@
     public class Rule
     {
         public List<Instructor> instructors = new List<Instructor>();
-        public bool Active = true;
 
         public bool Together = false;
 

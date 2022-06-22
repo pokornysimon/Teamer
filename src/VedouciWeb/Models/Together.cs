@@ -5,7 +5,6 @@
         public List<Instructor> Instructors;
         public int Year;
         public int Weight { get { return 100 / (DateTime.Now.Year - this.Year); } }
-        public bool Active { get; set; }
 
         public int TeamNubmer;
 
@@ -20,7 +19,6 @@
         {
             this.Instructors = new List<Instructor> { a, b };
             Year = year;
-            this.Active = true;
             TeamNubmer = number;
         }
 
@@ -28,7 +26,6 @@
         {
             this.Instructors = new List<Instructor> { a, b , c};
             Year = year;
-            this.Active = true;
             TeamNubmer = number;
         }
     }
