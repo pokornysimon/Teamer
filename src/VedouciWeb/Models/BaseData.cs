@@ -40,7 +40,7 @@
                 Name = "Jolka",
                 Active = false,
                 Woman = true,
-                Year = 2014,
+                Year = 2016,
                 Photo = "/img/jolka.png"
             };
             Instructors.Add(jolka);
@@ -51,7 +51,7 @@
                 Name = "Bláža",
                 Active = true,
                 Woman = false,
-                Year = 2014,
+                Year = 2016,
                 Photo = "/img/blaza.png"
             };
             Instructors.Add(blaza);
@@ -62,7 +62,7 @@
                 Name = "Míša",
                 Active = true,
                 Woman = true,
-                Year = 2014,
+                Year = 2016,
                 Photo = "/img/misa.png"
             };
             Instructors.Add(misa);
@@ -73,7 +73,7 @@
                 Name = "KubaM",
                 Active = true,
                 Woman = false,
-                Year = 2017,
+                Year = 2018,
                 Photo = "/img/kubam.png"
 
             };
@@ -85,7 +85,7 @@
                 Name = "Filip",
                 Active = true,
                 Woman = false,
-                Year = 2018,
+                Year = 2019,
                 Photo = "/img/filip.png"
             };
             Instructors.Add(filip);
@@ -96,7 +96,7 @@
                 Name = "KubaJ",
                 Active = true,
                 Woman = false,
-                Year = 2018,
+                Year = 2019,
                 Photo = "/img/kubaj.png"
             };
             Instructors.Add(kubaj);
