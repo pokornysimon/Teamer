@@ -266,9 +266,22 @@
             };
             Instructors.Add(tomas);
 
-            var novy1 = new Instructor()
+            var misat = new Instructor()
             {
                 Id = 25,
+                Name = "MíšaT",
+                Active = true,
+                Woman = true,
+                Year = 2022,
+                Photo = "/img/misat.png"
+            };
+            Instructors.Add(misat);
+
+
+
+            var novy1 = new Instructor()
+            {
+                Id = 26,
                 Name = "Nový",
                 Active = false,
                 Woman = true,
