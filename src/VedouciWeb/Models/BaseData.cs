@@ -116,7 +116,7 @@
             {
                 Id = 10,
                 Name = "AnčaD",
-                Active = false,
+                Active = true,
                 Woman = true,
                 Year = 2020,
                 Photo = "/img/ancad.png"

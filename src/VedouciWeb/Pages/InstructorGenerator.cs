@@ -18,11 +18,10 @@ namespace VedouciWeb.Pages
         private List<Team> _savedCombinations = new List<Team>();
 
         // Settings
-        private bool BoyAndGirl = false;
+        private bool BoyAndGirl = true;
         private int MinYears = 5;
         private int _maxComputeTime = 10;
 
-        private bool searching = false;
         private bool timeExcited = false;
 
         private bool emptyLocalStorage = true;
@@ -67,7 +66,6 @@ namespace VedouciWeb.Pages
 
         private async Task CalculateCombinations()
         {
-            searching = true;
             timeExcited = false;
 
             this.ComputationError = false;
@@ -93,7 +91,6 @@ namespace VedouciWeb.Pages
             this._possibleCombinations = await Combinator.MakeCombinations();
             this._possibleCombinationsTimeMs = (Combinator.ComputationFinished - Combinator.ComputationStarted).TotalMilliseconds;
             this.timeExcited = Combinator.ComputationExcited;
-            searching = false;
         }
 
 
