@@ -291,6 +291,13 @@
             Instructors.Add(novy1);
 
 
+            // 2022
+            Togethers.Add(new Together(blaza, filip, misat, 2022, 1));
+            Togethers.Add(new Together(simon, kubaj, ancad, 2022, 2));
+            Togethers.Add(new Together(fanda, julca, 2022, 3));
+            Togethers.Add(new Together(misa, tomas, kubam, 2022, 4));
+            
+            
             // 2021
             Togethers.Add(new Together(jolka, filip, 2021, 1));
             Togethers.Add(new Together(misa, kubaj, 2021, 2));
