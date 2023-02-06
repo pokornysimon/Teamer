@@ -277,7 +277,16 @@
             };
             Instructors.Add(misat);
 
-
+            var zuzka = new Instructor()
+            {
+                Id = 27,
+                Name = "Zuzka",
+                Active = true,
+                Woman = true,
+                Year = 2022,
+                Photo = "/img/zuzka.png"
+            };
+            Instructors.Add(zuzka);
 
             var novy1 = new Instructor()
             {
