@@ -283,7 +283,7 @@
                 Name = "Zuzka",
                 Active = true,
                 Woman = true,
-                Year = 2022,
+                Year = 2023,
                 Photo = "/img/zuzka.png"
             };
             Instructors.Add(zuzka);
