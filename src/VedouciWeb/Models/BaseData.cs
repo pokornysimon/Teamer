@@ -60,7 +60,7 @@
             {
                 Id = 5,
                 Name = "Míša",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2016,
                 Photo = "/img/misa.png"
@@ -71,7 +71,7 @@
             {
                 Id = 6,
                 Name = "KubaM",
-                Active = true,
+                Active = false,
                 Woman = false,
                 Year = 2018,
                 Photo = "/img/kubam.png"
@@ -116,7 +116,7 @@
             {
                 Id = 10,
                 Name = "AnčaD",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2020,
                 Photo = "/img/ancad.png"
@@ -287,6 +287,39 @@
                 Photo = "/img/zuzka.png"
             };
             Instructors.Add(zuzka);
+            
+            var kackaP = new Instructor()
+            {
+                Id = 28,
+                Name = "Kačka P",
+                Active = true,
+                Woman = true,
+                Year = 2024,
+                Photo = "/img/kackap.png"
+            };
+            Instructors.Add(kackaP);
+            
+            var justa = new Instructor()
+            {
+                Id = 29,
+                Name = "Jusťa",
+                Active = true,
+                Woman = true,
+                Year = 2024,
+                Photo = "/img/justa.png"
+            };
+            Instructors.Add(justa);
+            
+            var kubah = new Instructor()
+            {
+                Id = 30,
+                Name = "Kuba H",
+                Active = true,
+                Woman = false,
+                Year = 2024,
+                Photo = "/img/kubah.png"
+            };
+            Instructors.Add(kubah);
 
             var novy1 = new Instructor()
             {

@@ -19,7 +19,7 @@ namespace VedouciWeb.Pages
 
         // Settings
         private bool BoyAndGirl = true;
-        private int MinYears = 5;
+        private int MinYears = 4;
         private int _maxComputeTime = 10;
 
         private bool timeExcited = false;
