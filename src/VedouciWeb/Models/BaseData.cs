@@ -19,7 +19,8 @@
                 Active = true,
                 Woman = false,
                 Year = 2014,
-                Photo = "/img/simon.png"
+                Photo = "/img/simon.png",
+                ShowInList = true
             };
             Instructors.Add(simon);
 
@@ -30,7 +31,8 @@
                 Active = true,
                 Woman = false,
                 Year = 2014,
-                Photo = "/img/fanda.png"
+                Photo = "/img/fanda.png",
+                ShowInList = true
             };
             Instructors.Add(fanda);
 
@@ -38,10 +40,11 @@
             {
                 Id = 3,
                 Name = "Jolka",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2016,
-                Photo = "/img/jolka.png"
+                Photo = "/img/jolka.png",
+                ShowInList = true
             };
             Instructors.Add(jolka);
 
@@ -52,7 +55,8 @@
                 Active = true,
                 Woman = false,
                 Year = 2016,
-                Photo = "/img/blaza.png"
+                Photo = "/img/blaza.png",
+                ShowInList = true
             };
             Instructors.Add(blaza);
 
@@ -63,7 +67,8 @@
                 Active = false,
                 Woman = true,
                 Year = 2016,
-                Photo = "/img/misa.png"
+                Photo = "/img/misa.png",
+                ShowInList = true
             };
             Instructors.Add(misa);
 
@@ -74,7 +79,8 @@
                 Active = false,
                 Woman = false,
                 Year = 2018,
-                Photo = "/img/kubam.png"
+                Photo = "/img/kubam.png",
+                ShowInList = true
 
             };
             Instructors.Add(kubam);
@@ -86,7 +92,8 @@
                 Active = true,
                 Woman = false,
                 Year = 2019,
-                Photo = "/img/filip.png"
+                Photo = "/img/filip.png",
+                ShowInList = true
             };
             Instructors.Add(filip);
 
@@ -97,7 +104,8 @@
                 Active = true,
                 Woman = false,
                 Year = 2019,
-                Photo = "/img/kubaj.png"
+                Photo = "/img/kubaj.png",
+                ShowInList = true
             };
             Instructors.Add(kubaj);
 
@@ -108,7 +116,8 @@
                 Active = true,
                 Woman = true,
                 Year = 2020,
-                Photo = "/img/julca.png"
+                Photo = "/img/julca.png",
+                ShowInList = true
             };
             Instructors.Add(julca);
 
@@ -119,7 +128,8 @@
                 Active = true,
                 Woman = true,
                 Year = 2020,
-                Photo = "/img/ancad.png"
+                Photo = "/img/ancad.png",
+                ShowInList = true
             };
             Instructors.Add(ancad);
 
@@ -130,7 +140,8 @@
                 Active = false,
                 Woman = false,
                 Year = 2013,
-                Photo = "/img/krna.png"
+                Photo = "/img/krna.png",
+                ShowInList = false
             };
             Instructors.Add(krna);
 
@@ -141,7 +152,8 @@
                 Active = false,
                 Woman = false,
                 Year = 2010,
-                Photo = "/img/tonda.png"
+                Photo = "/img/tonda.png",
+                ShowInList = false
             };
             Instructors.Add(tonda);
 
@@ -152,7 +164,8 @@
                 Active = false,
                 Woman = true,
                 Year = 2017,
-                Photo = "/img/nikca.png"
+                Photo = "/img/nikca.png",
+                ShowInList = false
             };
             Instructors.Add(nikca);
 
@@ -163,7 +176,8 @@
                 Active = false,
                 Woman = false,
                 Year = 2010,
-                Photo = "/img/jirka.png"
+                Photo = "/img/jirka.png",
+                ShowInList = true
             };
             Instructors.Add(jirka);
 
@@ -174,7 +188,8 @@
                 Active = false,
                 Woman = true,
                 Year = 2017,
-                Photo = "/img/julcag.png"
+                Photo = "/img/julcag.png",
+                ShowInList = false
             };
             Instructors.Add(julcaG);
 
@@ -185,7 +200,8 @@
                 Active = false,
                 Woman = true,
                 Year = 2014,
-                Photo = "/img/ivca.png"
+                Photo = "/img/ivca.png",
+                ShowInList = false
             };
             Instructors.Add(ivca);
 
@@ -196,150 +212,164 @@
                 Active = false,
                 Woman = true,
                 Year = 2010,
-                Photo = "/img/evca.png"
+                Photo = "/img/evca.png",
+                ShowInList = false
             };
             Instructors.Add(evca);
 
             var betka = new Instructor()
             {
-                Id = 19,
+                Id = 18,
                 Name = "Betka",
                 Active = false,
                 Woman = true,
                 Year = 2016,
-                Photo = "/img/betka.png"
+                Photo = "/img/betka.png",
+                ShowInList = false
             };
             Instructors.Add(betka);
 
             var andy = new Instructor()
             {
-                Id = 20,
+                Id = 19,
                 Name = "Andy",
                 Active = false,
                 Woman = true,
                 Year = 2013,
-                Photo = "/img/andy.png"
+                Photo = "/img/andy.png",
+                ShowInList = false
             };
             Instructors.Add(andy);
 
             var ancas = new Instructor()
             {
-                Id = 21,
+                Id = 20,
                 Name = "AnčaS",
                 Active = false,
                 Woman = true,
                 Year = 2013,
-                Photo = "/img/ancas.png"
+                Photo = "/img/ancas.png",
+                ShowInList = false
             };
             Instructors.Add(ancas);
 
             var alex = new Instructor()
             {
-                Id = 22,
+                Id = 21,
                 Name = "Alex",
                 Active = false,
                 Woman = false,
                 Year = 2014,
-                Photo = "/img/ymca.png"
+                Photo = "/img/ymca.png",
+                ShowInList = false
             };
             Instructors.Add(alex);
 
             var ajka = new Instructor()
             {
-                Id = 23,
+                Id = 22,
                 Name = "Ajka",
                 Active = false,
                 Woman = true,
                 Year = 2010,
-                Photo = "/img/ajka.png"
+                Photo = "/img/ajka.png",
+                ShowInList = false
             };
             Instructors.Add(ajka);
 
             var tomas = new Instructor()
             {
-                Id = 24,
+                Id = 23,
                 Name = "TomH",
                 Active = true,
                 Woman = false,
                 Year = 2021,
-                Photo = "/img/tomash.png"
+                Photo = "/img/tomash.png",
+                ShowInList = true
             };
             Instructors.Add(tomas);
 
             var misat = new Instructor()
             {
-                Id = 25,
+                Id = 24,
                 Name = "MíšaT",
                 Active = true,
                 Woman = true,
                 Year = 2022,
-                Photo = "/img/misat.png"
+                Photo = "/img/misat.png",
+                ShowInList = true
             };
             Instructors.Add(misat);
 
             var zuzka = new Instructor()
             {
-                Id = 27,
+                Id = 25,
                 Name = "Zuzka",
                 Active = false,
                 Woman = true,
                 Year = 2023,
-                Photo = "/img/zuzka.png"
+                Photo = "/img/zuzka.png",
+                ShowInList = true
             };
             Instructors.Add(zuzka);
-            
+
             var kackaP = new Instructor()
             {
-                Id = 28,
+                Id = 26,
                 Name = "Kačka P",
-                Active = false,
+                Active = true,
                 Woman = true,
                 Year = 2024,
-                Photo = "/img/kackap.png"
+                Photo = "/img/kackap.png",
+                ShowInList = true
             };
             Instructors.Add(kackaP);
-            
+
             var justa = new Instructor()
             {
-                Id = 29,
+                Id = 27,
                 Name = "Jusťa",
                 Active = false,
                 Woman = true,
                 Year = 2024,
-                Photo = "/img/justa.png"
+                Photo = "/img/justa.png",
+                ShowInList = true
             };
             Instructors.Add(justa);
-            
+
             var kubah = new Instructor()
             {
-                Id = 30,
+                Id = 28,
                 Name = "Kuba H",
-                Active = false,
+                Active = true,
                 Woman = false,
                 Year = 2024,
-                Photo = "/img/kubah.png"
+                Photo = "/img/kubah.png",
+                ShowInList = true
             };
             Instructors.Add(kubah);
-            
+
             var kackad = new Instructor()
             {
-                Id = 18,
+                Id = 29,
                 Name = "Kačka D",
                 Active = true,
                 Woman = true,
                 Year = 2024,
-                Photo = "/img/kackad.png"
+                Photo = "/img/kackad.png",
+                ShowInList = true
             };
             Instructors.Add(kackad);
 
             var novy1 = new Instructor()
             {
-                Id = 26,
+                Id = 99,
                 Name = "Nový",
                 Active = false,
                 Woman = true,
-                Year = 2022,
-                Photo = "/img/ymca.png"
+                Year = 2099,
+                Photo = "/img/ymca.png",
+                ShowInList = true
             };
             Instructors.Add(novy1);
 
@@ -348,15 +378,15 @@
             Togethers.Add(new Together(kubaj, tomas, julca, 2023, 2));
             Togethers.Add(new Together(kubam, filip, ancad, 2023, 3));
             Togethers.Add(new Together(simon, misa, misat, 2023, 4));
-            
+
 
             // 2022
             Togethers.Add(new Together(blaza, filip, misat, 2022, 1));
             Togethers.Add(new Together(simon, kubaj, ancad, 2022, 2));
             Togethers.Add(new Together(fanda, julca, 2022, 3));
             Togethers.Add(new Together(misa, tomas, kubam, 2022, 4));
-            
-            
+
+
             // 2021
             Togethers.Add(new Together(jolka, filip, 2021, 1));
             Togethers.Add(new Together(misa, kubaj, 2021, 2));
@@ -408,9 +438,7 @@
 
 
             // Rules
-            Rules.Add(new Rule(kackaP, justa));
             Rules.Add(new Rule(kackaP, kubah));
-            Rules.Add(new Rule(justa, kubah));
         }
 
     }

@@ -19,7 +19,7 @@ namespace VedouciWeb.Pages
 
         // Settings
         private bool BoyAndGirl = true;
-        private int MinYears = 4;
+        private int MinYears = 3;
         private int _maxComputeTime = 10;
 
         private bool timeExcited = false;
@@ -146,7 +146,7 @@ namespace VedouciWeb.Pages
         }
 
 
-        private string womanColor(bool woman) => woman ? "red" : "blue";
+        private string womanColor(bool woman) => woman ? "#ff6a79" : "#5696f5";
         private string activeColor(bool active) => active ? "#c9ffc9" : "#dddddd";
 
         private string getColor(int id) => Colorer.GetColorCode(id);
