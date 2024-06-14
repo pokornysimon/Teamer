@@ -317,7 +317,7 @@
             {
                 Id = 26,
                 Name = "Kačka P",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2024,
                 Photo = "/img/kackap.png",
