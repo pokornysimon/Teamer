@@ -445,7 +445,7 @@
 
 
             // Rules
-            Rules.Add(new Rule(kackaP, kubah));
+            // Rules.Add(new Rule(kackaP, kubah));
         }
 
     }
