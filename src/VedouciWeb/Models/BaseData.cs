@@ -76,7 +76,7 @@
             {
                 Id = 6,
                 Name = "KubaM",
-                Active = false,
+                Active = true,
                 Woman = false,
                 Year = 2018,
                 Photo = "/img/kubam.png",
@@ -89,7 +89,7 @@
             {
                 Id = 7,
                 Name = "Filip",
-                Active = true,
+                Active = false,
                 Woman = false,
                 Year = 2019,
                 Photo = "/img/filip.png",
@@ -101,7 +101,7 @@
             {
                 Id = 8,
                 Name = "KubaJ",
-                Active = true,
+                Active = false,
                 Woman = false,
                 Year = 2019,
                 Photo = "/img/kubaj.png",
