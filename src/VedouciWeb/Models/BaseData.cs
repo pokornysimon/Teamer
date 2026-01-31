@@ -373,13 +373,20 @@
             };
             Instructors.Add(novy1);
 
-            
-            // 2024
+ // 2025
+            Togethers.Add(new Together(blaza, kackaP, tomas, 2025, 1));
+            Togethers.Add(new Together(misat, kubah, ancad, 2025, 2));
+            Togethers.Add(new Together(fanda, kackad, 2025, 3));
+      Togethers.Add(new Together(simon, julca, 2024, 4));
+
+
+             // 2024
             Togethers.Add(new Together(blaza, kubah, julca, 2024, 1));
             Togethers.Add(new Together(simon, filip, kackad, 2024, 2));
             Togethers.Add(new Together(kubaj, misat, kackaP, 2024, 3));
             Togethers.Add(new Together(fanda, tomas, ancad, 2024, 4));
 
+           
             // 2023
             Togethers.Add(new Together(fanda, blaza, zuzka, 2023, 1));
             Togethers.Add(new Together(kubaj, tomas, julca, 2023, 2));
