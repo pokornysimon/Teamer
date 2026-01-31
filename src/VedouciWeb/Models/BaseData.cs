@@ -377,7 +377,7 @@
             Togethers.Add(new Together(blaza, kackaP, tomas, 2025, 1));
             Togethers.Add(new Together(misat, kubah, ancad, 2025, 2));
             Togethers.Add(new Together(fanda, kackad, 2025, 3));
-      Togethers.Add(new Together(simon, julca, kunám, 2024, 4));
+      Togethers.Add(new Together(simon, julca, kubam, 2025, 4));
 
 
              // 2024
