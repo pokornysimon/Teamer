@@ -52,7 +52,7 @@
             {
                 Id = 4,
                 Name = "Bláža",
-                Active = true,
+                Active = false,
                 Woman = false,
                 Year = 2016,
                 Photo = "/img/blaza.png",
@@ -76,7 +76,7 @@
             {
                 Id = 6,
                 Name = "KubaM",
-                Active = true,
+                Active = false,
                 Woman = false,
                 Year = 2018,
                 Photo = "/img/kubam.png",
@@ -113,7 +113,7 @@
             {
                 Id = 9,
                 Name = "Julča",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2020,
                 Photo = "/img/julca.png",
@@ -173,7 +173,7 @@
             {
                 Id = 14,
                 Name = "Jirka",
-                Active = false,
+                Active = true,
                 Woman = false,
                 Year = 2010,
                 Photo = "/img/jirka.png",
@@ -329,7 +329,7 @@
             {
                 Id = 27,
                 Name = "Jusťa",
-                Active = false,
+                Active = true,
                 Woman = true,
                 Year = 2024,
                 Photo = "/img/justa.png",
@@ -377,7 +377,7 @@
             Togethers.Add(new Together(blaza, kackaP, tomas, 2025, 1));
             Togethers.Add(new Together(misat, kubah, ancad, 2025, 2));
             Togethers.Add(new Together(fanda, kackad, 2025, 3));
-      Togethers.Add(new Together(simon, julca, 2024, 4));
+      Togethers.Add(new Together(simon, julca, kunám, 2024, 4));
 
 
              // 2024
