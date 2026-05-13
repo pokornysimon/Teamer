@@ -331,7 +331,7 @@
                 Name = "Jusťa",
                 Active = true,
                 Woman = true,
-                Year = 2024,
+                Year = 2026,
                 Photo = "/img/justa.png",
                 ShowInList = true
             };
@@ -361,6 +361,31 @@
             };
             Instructors.Add(kackad);
 
+            var bora = new Instructor()
+            {
+                Id = 30,
+                Name = "Bóřa",
+                Active = true,
+                Woman = false,
+                Year = 2026,
+                Photo = "/img/ymca.png",
+                ShowInList = true
+            };
+            Instructors.Add(bora);
+
+            
+            var vita = new Instructor()
+            {
+                Id = 31,
+                Name = "Víťa",
+                Active = true,
+                Woman = false,
+                Year = 2026,
+                Photo = "/img/ymca.png",
+                ShowInList = true
+            };
+            Instructors.Add(vita);
+            
             var novy1 = new Instructor()
             {
                 Id = 99,
