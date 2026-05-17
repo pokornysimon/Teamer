@@ -125,7 +125,7 @@
             {
                 Id = 10,
                 Name = "AnčaD",
-                Active = true,
+                Active = false,
                 Woman = true,
                 Year = 2020,
                 Photo = "/img/ancad.png",
@@ -373,7 +373,7 @@
             };
             Instructors.Add(bora);
 
-            
+
             var vita = new Instructor()
             {
                 Id = 31,
@@ -381,11 +381,11 @@
                 Active = true,
                 Woman = false,
                 Year = 2026,
-                Photo = "/img/ymca.png",
+                Photo = "/img/vita.png",
                 ShowInList = true
             };
             Instructors.Add(vita);
-            
+
             var novy1 = new Instructor()
             {
                 Id = 99,
@@ -393,25 +393,25 @@
                 Active = false,
                 Woman = true,
                 Year = 2099,
-                Photo = "/img/ymca.png",
+                Photo = "/img/bora.png",
                 ShowInList = true
             };
             Instructors.Add(novy1);
 
- // 2025
+            // 2025
             Togethers.Add(new Together(blaza, kackaP, tomas, 2025, 1));
             Togethers.Add(new Together(misat, kubah, ancad, 2025, 2));
             Togethers.Add(new Together(fanda, kackad, 2025, 3));
-      Togethers.Add(new Together(simon, julca, kubam, 2025, 4));
+            Togethers.Add(new Together(simon, julca, kubam, 2025, 4));
 
 
-             // 2024
+            // 2024
             Togethers.Add(new Together(blaza, kubah, julca, 2024, 1));
             Togethers.Add(new Together(simon, filip, kackad, 2024, 2));
             Togethers.Add(new Together(kubaj, misat, kackaP, 2024, 3));
             Togethers.Add(new Together(fanda, tomas, ancad, 2024, 4));
 
-           
+
             // 2023
             Togethers.Add(new Together(fanda, blaza, zuzka, 2023, 1));
             Togethers.Add(new Together(kubaj, tomas, julca, 2023, 2));
