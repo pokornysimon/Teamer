@@ -368,7 +368,7 @@
                 Active = true,
                 Woman = false,
                 Year = 2026,
-                Photo = "/img/ymca.png",
+                Photo = "/img/bora.png",
                 ShowInList = true
             };
             Instructors.Add(bora);
@@ -393,7 +393,7 @@
                 Active = false,
                 Woman = true,
                 Year = 2099,
-                Photo = "/img/bora.png",
+                Photo = "/img/ymca.png",
                 ShowInList = true
             };
             Instructors.Add(novy1);
